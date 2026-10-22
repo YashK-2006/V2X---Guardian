@@ -42,9 +42,9 @@ export const TrustGauge: React.FC<TrustGaugeProps> = ({ score, size = 100, label
 
       <div className="relative" style={{ width: size, height: size }}>
 
-        <svg width={size} height={size} className="transform -rotate-90 trust-gauge-svg">
+        <svg width={size} height={size} className="transform -rotate-90">
 
-          <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(148,163,184,0.14)" strokeWidth={strokeWidth} fill="none" />
+          <circle cx={size / 2} cy={size / 2} r={radius} stroke="rgba(255,255,255,0.1)" strokeWidth={strokeWidth} fill="none" />
 
           <circle
 
@@ -64,7 +64,7 @@ export const TrustGauge: React.FC<TrustGaugeProps> = ({ score, size = 100, label
 
             strokeDashoffset={strokeDashoffset}
 
-            className="trust-gauge-ring transition-all duration-1000 ease-out"
+            className="trust-gauge-ring transition-all duration-700 ease-out"
 
             strokeLinecap="round"
 
@@ -74,7 +74,7 @@ export const TrustGauge: React.FC<TrustGaugeProps> = ({ score, size = 100, label
 
         <div className="absolute inset-0 flex items-center justify-center">
 
-          <span className="font-bold trust-gauge-value" style={{ color, fontSize: size * 0.2, textShadow: `0 0 18px ${color}55` }}>
+          <span className="font-bold" style={{ color, fontSize: size * 0.2 }}>
 
             {(score * 100).toFixed(1)}
 
