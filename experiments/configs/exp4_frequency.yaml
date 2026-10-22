@@ -1,0 +1,15 @@
+name: "Frequency and replay attacks"
+
+description: "Message flooding (10x beacon rate) and replay of captured messages."
+
+scenario: high_traffic
+
+duration: 120
+
+repetitions: 2
+
+attacks:
+
+  - {type: message_flooding, at: 15, count: 2}
+
+  - {type: replay, at: 20}

@@ -1,0 +1,11 @@
+name: "Normal traffic (false-positive baseline)"
+
+description: "No attackers. Measures false positives, honest-message rejection and system overhead."
+
+scenario: normal
+
+duration: 180
+
+repetitions: 2
+
+attacks: []

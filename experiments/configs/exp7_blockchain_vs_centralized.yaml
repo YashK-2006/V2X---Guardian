@@ -1,0 +1,23 @@
+name: "Blockchain vs centralized trust"
+
+description: "Same attacks and detector; trust records on the PoA blockchain vs a central server. Includes an insider tamper test."
+
+scenario: normal
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: emergency_spoofing, at: 15}
+
+  - {type: sybil, at: 25}
+
+  - {type: false_position, at: 35}
+
+variants:
+
+  - {name: "Blockchain (PoA, 5 RSU validators)", ledger: blockchain}
+
+  - {name: "Centralized trust server", ledger: centralized}

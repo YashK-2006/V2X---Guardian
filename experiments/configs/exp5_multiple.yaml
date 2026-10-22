@@ -1,0 +1,29 @@
+name: "Multiple mixed attackers"
+
+description: "All attack families active at the same time in dense traffic."
+
+scenario: high_traffic
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: emergency_spoofing, at: 10}
+
+  - {type: false_position, at: 15}
+
+  - {type: false_speed, at: 20}
+
+  - {type: false_acceleration, at: 25}
+
+  - {type: false_heading, at: 30}
+
+  - {type: sybil, at: 35}
+
+  - {type: replay, at: 40}
+
+  - {type: message_injection, at: 45}
+
+  - {type: collusion, at: 50}

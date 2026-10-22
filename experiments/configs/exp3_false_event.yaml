@@ -1,0 +1,15 @@
+name: "False events and collusion"
+
+description: "Single fake-accident reporters and a colluding group corroborating the same fake accident."
+
+scenario: normal
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: fake_accident, at: 15, count: 2}
+
+  - {type: collusion, at: 30}

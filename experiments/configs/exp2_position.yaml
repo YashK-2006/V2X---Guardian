@@ -1,0 +1,15 @@
+name: "Position falsification"
+
+description: "False position (constant offset) and GPS spoofing (gradual drift) attackers."
+
+scenario: normal
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: false_position, at: 15, count: 2}
+
+  - {type: gps_spoofing, at: 25}

@@ -1,0 +1,73 @@
+# =============================================================================
+
+# V2X Blockchain AI Framework — Python Dependencies
+
+# =============================================================================
+
+
+
+# --- Simulation ---
+
+traci
+
+sumolib
+
+
+
+# --- AI / Machine Learning ---
+
+numpy
+
+pandas
+
+scikit-learn
+
+xgboost
+
+joblib
+
+
+
+# --- Backend API ---
+
+fastapi
+
+uvicorn[standard]
+
+websockets
+
+pydantic>=2.0
+
+orjson
+
+aiosqlite
+
+sqlalchemy[asyncio]
+
+
+
+# --- Blockchain / Cryptography ---
+
+cryptography
+
+ecdsa
+
+
+
+# --- Utilities ---
+
+python-dotenv
+
+pyyaml
+
+rich
+
+
+
+# --- Testing ---
+
+pytest
+
+pytest-asyncio
+
+httpx

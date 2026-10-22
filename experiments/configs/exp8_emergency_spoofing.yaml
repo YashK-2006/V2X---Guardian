@@ -1,0 +1,13 @@
+name: "Emergency vehicle spoofing"
+
+description: "Cars claim to be ambulances / police / fire trucks among legitimate emergency vehicles."
+
+scenario: emergency_vehicle
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: emergency_spoofing, at: 15, count: 3}

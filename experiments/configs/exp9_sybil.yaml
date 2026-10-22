@@ -1,0 +1,13 @@
+name: "Sybil attack"
+
+description: "Attackers fabricate ghost identities; detection by certificate checks and RSU transmitter localization."
+
+scenario: normal
+
+duration: 150
+
+repetitions: 2
+
+attacks:
+
+  - {type: sybil, at: 15, count: 2}

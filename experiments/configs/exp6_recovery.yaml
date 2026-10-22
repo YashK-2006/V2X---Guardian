@@ -1,0 +1,15 @@
+name: "Isolation and rehabilitation"
+
+description: "Attackers stop after 20 s; measures blacklisting and probation-based rehabilitation."
+
+scenario: normal
+
+duration: 200
+
+repetitions: 2
+
+attacks:
+
+  - {type: false_speed, at: 15, count: 2, duration: 20}
+
+  - {type: emergency_spoofing, at: 20, duration: 20}
