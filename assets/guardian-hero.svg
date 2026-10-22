@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520" role="img" aria-labelledby="title desc">
+  <title id="title">V2X Guardian — Royal Cybersecurity Banner</title>
+  <desc id="desc">A midnight-navy automotive cyber network with a gold shield at its center, animated data paths, and glowing connected vehicle nodes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080B18"/>
+      <stop offset=".48" stop-color="#171331"/>
+      <stop offset="1" stop-color="#090D1A"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF0B3"/>
+      <stop offset=".45" stop-color="#D8B45A"/>
+      <stop offset="1" stop-color="#8D6723"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#8B5CF6" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#A5B4FC" stroke-opacity=".08" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1400" height="520" rx="28" fill="url(#bg)"/>
+  <rect width="1400" height="520" rx="28" fill="url(#grid)"/>
+  <ellipse cx="700" cy="260" rx="420" ry="270" fill="url(#glow)"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M80 130H270L360 205H515M85 380H260L360 315H515M1320 130H1135L1040 205H885M1320 380H1140L1040 315H885" stroke="#8B5CF6" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M145 250H330L390 250M1255 250H1070L1010 250M700 60V130M700 390V460" stroke="#D8B45A" stroke-opacity=".45" stroke-width="2"/>
+    <path d="M80 130H270L360 205H515M85 380H260L360 315H515M1320 130H1135L1040 205H885M1320 380H1140L1040 315H885" stroke="url(#violet)" stroke-width="3" stroke-dasharray="12 20">
+      <animate attributeName="stroke-dashoffset" values="0;-128" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M145 250H330L390 250M1255 250H1070L1010 250M700 60V130M700 390V460" stroke="url(#gold)" stroke-width="2" stroke-dasharray="5 18">
+      <animate attributeName="stroke-dashoffset" values="0;92" dur="4s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <g fill="#10172B" stroke="#A78BFA" stroke-width="2" filter="url(#softGlow)">
+    <circle cx="80" cy="130" r="10"><animate attributeName="r" values="8;12;8" dur="2.6s" repeatCount="indefinite"/></circle>
+    <circle cx="85" cy="380" r="10"><animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite"/></circle>
+    <circle cx="1320" cy="130" r="10"><animate attributeName="r" values="8;12;8" dur="2.8s" repeatCount="indefinite"/></circle>
+    <circle cx="1320" cy="380" r="10"><animate attributeName="r" values="8;12;8" dur="2.4s" repeatCount="indefinite"/></circle>
+    <circle cx="145" cy="250" r="7"/><circle cx="1255" cy="250" r="7"/>
+    <circle cx="700" cy="60" r="7"/><circle cx="700" cy="460" r="7"/>
+  </g>
+  <g transform="translate(700 245)">
+    <circle r="128" fill="#0B1020" stroke="#D8B45A" stroke-opacity=".35" stroke-width="1.5"/>
+    <circle r="112" fill="none" stroke="#8B5CF6" stroke-opacity=".6" stroke-width="1.5" stroke-dasharray="4 12">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="38s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="92" fill="none" stroke="#22D3EE" stroke-opacity=".25" stroke-width="1"/>
+    <path d="M0 -78 L62 -55 L56 15 Q47 60 0 83 Q-47 60 -56 15 L-62 -55 Z" fill="#11172B" stroke="url(#gold)" stroke-width="4" filter="url(#softGlow)"/>
+    <path d="M0 -57 L45 -40 L41 13 Q33 44 0 62 Q-33 44 -41 13 L-45 -40 Z" fill="#1B2140" stroke="#F3D58A" stroke-opacity=".65" stroke-width="1.5"/>
+    <path d="M-25 0 L-7 19 L29 -22" fill="none" stroke="url(#gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <animate attributeName="stroke-opacity" values=".65;1;.65" dur="2.4s" repeatCount="indefinite"/>
+    </path>
+    <circle r="100" fill="none" stroke="#D8B45A" stroke-opacity=".4" stroke-width="1">
+      <animate attributeName="r" values="96;124;96" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values=".35;0;.35" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" text-anchor="middle">
+    <text x="700" y="430" fill="#F8FAFC" font-size="43" font-weight="800" letter-spacing="8">V2X GUARDIAN</text>
+    <text x="700" y="468" fill="#D8B45A" font-size="16" font-weight="600" letter-spacing="4">INTELLIGENCE · TRUST · ACCOUNTABILITY</text>
+    <text x="700" y="45" fill="#A5B4FC" font-size="12" letter-spacing="4">CONNECTED VEHICLE SECURITY FRAMEWORK</text>
+  </g>
+  <g fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" letter-spacing="1.4">
+    <text x="92" y="104">V2X SIGNAL</text><text x="92" y="408">AI DETECTION</text>
+    <text x="1190" y="104">DYNAMIC TRUST</text><text x="1190" y="408">BLOCKCHAIN</text>
+  </g>
+</svg>
