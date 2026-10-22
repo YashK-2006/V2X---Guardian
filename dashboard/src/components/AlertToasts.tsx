@@ -40,7 +40,7 @@ const ToastCard: React.FC<{ t: Toast }> = ({ t }) => {
 
     <div
 
-      className="w-80 rounded-lg shadow-2xl p-3 text-sm cursor-pointer backdrop-blur bg-[#111827]/95 animate-[fadeIn_0.2s]"
+      className={`security-toast w-80 rounded-lg shadow-2xl p-3 text-sm cursor-pointer backdrop-blur bg-[#0b1220]/95 animate-[fadeIn_0.2s] ${t.severity === "critical" ? "security-toast--critical" : t.severity === "warning" ? "security-toast--warning" : "security-toast--info"}`}
 
       style={{ border: `1px solid ${color}88`, boxShadow: `0 0 24px ${color}33` }}
 
@@ -118,7 +118,7 @@ export const AlertToasts: React.FC = () => {
 
   return (
 
-    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
+    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 security-toast-stack">
 
       {toasts.map((t) => <ToastCard key={t.toastId} t={t} />)}
 
