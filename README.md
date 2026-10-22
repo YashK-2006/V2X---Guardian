@@ -1,24 +1,33 @@
 <div align="center">
 
-# 🛡️ V2X GUARDIAN
-
-### AI-Powered Misbehaviour Detection · Dynamic Trust · Blockchain Accountability
-
-**A simulation-driven security framework for connected vehicles.**
-
-Protecting Vehicle-to-Everything (V2X) communication by detecting malicious behaviour, adapting vehicle trust, and preserving verifiable evidence on a permissioned blockchain.
+<img src="assets/guardian-hero.svg" alt="V2X Guardian — animated royal cyber-security banner" width="100%" />
 
 <br />
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/UI-React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![Blockchain](https://img.shields.io/badge/Ledger-Permissioned%20PoA-6D5DFB?style=for-the-badge&logo=bitcoin&logoColor=white)](#-system-architecture)
-[![License](https://img.shields.io/badge/License-Add%20project%20license-lightgrey?style=for-the-badge)](#-project-status)
+<a href="https://github.com/YashK-2006/V2X---Guardian">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2600&pause=650&color=D8B45A&center=true&vCenter=true&repeat=true&width=850&height=45&lines=AI-Powered+V2X+Threat+Detection;Dynamic+Trust+%2B+Reputation+Engine;Blockchain-Backed+Evidence+Integrity;A+Royal+Security+Console+for+Connected+Vehicles" alt="Animated project tagline" />
+</a>
 
 <br />
 
-[Explore the code](https://github.com/YashK-2006/V2X---Guardian) · [Report an issue](https://github.com/YashK-2006/V2X---Guardian/issues)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![SUMO](https://img.shields.io/badge/SUMO-TraCI-6B46C1?style=for-the-badge)](https://sumo.dlr.de/)
+[![Security](https://img.shields.io/badge/SECURITY-AI%20%2B%20TRUST%20%2B%20LEDGER-D8B45A?style=for-the-badge&labelColor=151126)](#-system-architecture)
+
+<br />
+
+<a href="https://github.com/YashK-2006/V2X---Guardian">
+  <img src="https://img.shields.io/badge/EXPLORE-THE%20FRAMEWORK-D8B45A?style=for-the-badge&labelColor=151126" alt="Explore the framework" />
+</a>
+<a href="https://github.com/YashK-2006/V2X---Guardian/issues">
+  <img src="https://img.shields.io/badge/REPORT-AN%20ISSUE-8B5CF6?style=for-the-badge&labelColor=151126" alt="Report an issue" />
+</a>
+
+<br />
+
+<sub>INTELLIGENCE · TRUST · ACCOUNTABILITY</sub>
 
 </div>
 
