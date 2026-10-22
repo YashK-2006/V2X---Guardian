@@ -164,9 +164,21 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
 
       const state = useStore.getState();
 
-      ctx.fillStyle = '#0a0e1a';
-
+      const backdrop = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      backdrop.addColorStop(0, '#070d1b');
+      backdrop.addColorStop(0.55, '#0b1426');
+      backdrop.addColorStop(1, '#080d19');
+      ctx.fillStyle = backdrop;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.strokeStyle = 'rgba(99, 102, 241, 0.055)';
+      ctx.lineWidth = 1;
+      const grid = 32;
+      for (let gx = 0; gx < canvas.width; gx += grid) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, canvas.height); ctx.stroke(); }
+      for (let gy = 0; gy < canvas.height; gy += grid) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(canvas.width, gy); ctx.stroke(); }
+      const bloom = ctx.createRadialGradient(canvas.width * 0.5, canvas.height * 0.5, 4, canvas.width * 0.5, canvas.height * 0.5, Math.max(canvas.width, canvas.height) * 0.7);
+      bloom.addColorStop(0, 'rgba(6, 182, 212, 0.055)'); bloom.addColorStop(1, 'rgba(6, 182, 212, 0)');
+      ctx.fillStyle = bloom; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.restore();
 
 
 
@@ -188,7 +200,9 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
 
           });
 
-          ctx.strokeStyle = '#1f2937';
+          ctx.strokeStyle = '#24324a';
+          ctx.shadowColor = 'rgba(6, 182, 212, 0.12)';
+          ctx.shadowBlur = 5;
 
           ctx.lineWidth = Math.max(4, 3.2 * (edge.lanes ?? 2) * scale);
 
@@ -198,7 +212,7 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
 
         ctx.setLineDash([6, 8]);
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.strokeStyle = 'rgba(125, 211, 252, 0.16)';
 
         ctx.lineWidth = 1;
 
@@ -270,9 +284,12 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
 
         ctx.stroke();
 
-        ctx.fillStyle = selected ? '#22d3ee' : '#0891b2';
-
+        ctx.save();
+        ctx.shadowColor = '#22d3ee';
+        ctx.shadowBlur = selected ? 22 : 12;
+        ctx.fillStyle = selected ? '#a5f3fc' : '#22d3ee';
         ctx.fillRect(px - 6, py - 6, 12, 12);
+        ctx.restore();
 
         ctx.fillStyle = '#9ca3af';
 
@@ -328,19 +345,22 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
 
         const selected = state.selectedVehicleId === v.id;
 
+        const pulseRadius = iconSize * (0.92 + (Math.sin(t * 3.2 + px * 0.01) + 1) * 0.12);
         if (v.status !== 'trusted' || selected) {
 
           ctx.fillStyle = color + (selected ? '66' : '33');
 
           ctx.beginPath();
 
-          ctx.arc(px, py, iconSize * 0.9, 0, Math.PI * 2);
+          ctx.arc(px, py, selected ? pulseRadius * 1.22 : pulseRadius, 0, Math.PI * 2);
 
           ctx.fill();
 
         }
 
         ctx.strokeStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = selected || v.status === 'malicious' || v.status === 'blacklisted' ? 18 : 7;
 
         ctx.lineWidth = selected ? 3 : 2;
 
@@ -349,6 +369,7 @@ export const VehicleMap: React.FC<{ replay?: ReplayFrame | null }> = ({ replay }
         ctx.arc(px, py, iconSize * 0.65, 0, Math.PI * 2);
 
         ctx.stroke();
+        ctx.shadowBlur = 0;
 
         // heading tick (SUMO: 0 = north, clockwise)
 
