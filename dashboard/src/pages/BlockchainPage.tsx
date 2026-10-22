@@ -356,7 +356,7 @@ export const BlockchainPage: React.FC = () => {
 
             {txs.map((tx) => (
 
-              <button key={tx.tx_id} className="w-full text-left text-xs rounded px-2 py-1 hover:bg-white/[0.04]" onClick={() => { setSearch(tx.tx_id); lookup(tx.tx_id); }}>
+              <button key={tx.tx_id} className="transaction-row w-full text-left text-xs rounded px-2 py-1 hover:bg-white/[0.04]" onClick={() => { setSearch(tx.tx_id); lookup(tx.tx_id); }}>
 
                 <div className="flex justify-between"><span className="font-mono text-cyan-400">{tx.tx_id}</span><span className="text-gray-500">{tx.confirmed ? `#${tx.block}` : 'pending'}</span></div>
 
@@ -386,7 +386,7 @@ export const BlockchainPage: React.FC = () => {
 
             {evidence.map((e) => (
 
-              <button key={e.attack_id} className="w-full text-left text-xs rounded px-2 py-1.5 hover:bg-white/[0.04]" onClick={() => { setSearch(e.attack_id); setParams({ evidence: e.attack_id }); lookup(e.attack_id); }}>
+              <button key={e.attack_id} className="evidence-row w-full text-left text-xs rounded px-2 py-1.5 hover:bg-white/[0.04]" onClick={() => { setSearch(e.attack_id); setParams({ evidence: e.attack_id }); lookup(e.attack_id); }}>
 
                 <div className="flex justify-between"><span className="font-mono text-purple-300">{e.attack_id}</span><span className="text-gray-500">{fmtTime(e.time)}</span></div>
 
