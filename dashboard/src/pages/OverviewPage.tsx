@@ -66,7 +66,7 @@ export const OverviewPage: React.FC = () => {
 
       {activeAttacks.length > 0 && (
 
-        <div className="attack-banner rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-2 text-sm text-rose-200 flex flex-wrap gap-x-4 gap-y-1">
+        <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-2 text-sm text-rose-200 flex flex-wrap gap-x-4 gap-y-1">
 
           <span className="font-semibold">⚔ Active attacks (ground truth):</span>
 
