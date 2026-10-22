@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { Sidebar } from './components/Sidebar';
 
@@ -34,6 +34,8 @@ export const App: React.FC = () => {
 
   const status = useWebSocket('/ws/telemetry');
 
+  const location = useLocation();
+
   return (
 
     <div className="flex h-screen overflow-hidden bg-[#0a0e1a] text-gray-100">
@@ -41,6 +43,8 @@ export const App: React.FC = () => {
       <Sidebar status={status} />
 
       <main className="flex-1 overflow-hidden relative">
+
+        <div key={location.pathname} className="route-stage h-full">
 
         <Routes>
 
@@ -69,6 +73,8 @@ export const App: React.FC = () => {
           <Route path="/trust" element={<TrustPage />} />
 
         </Routes>
+
+        </div>
 
       </main>
 
