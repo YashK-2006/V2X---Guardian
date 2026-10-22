@@ -1,195 +1,286 @@
-# V2X AI + Blockchain Trust Framework
+<div align="center">
 
+# 🛡️ V2X GUARDIAN
 
+### AI-Powered Misbehaviour Detection · Dynamic Trust · Blockchain Accountability
 
-A SUMO-based V2X simulation with AI misbehaviour detection, dynamic trust and reputation management,
+**A simulation-driven security framework for connected vehicles.**
 
-a permissioned blockchain for trust records and evidence, and a real-time SOC dashboard.
+Protecting Vehicle-to-Everything (V2X) communication by detecting malicious behaviour, adapting vehicle trust, and preserving verifiable evidence on a permissioned blockchain.
 
+<br />
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/UI-React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Blockchain](https://img.shields.io/badge/Ledger-Permissioned%20PoA-6D5DFB?style=for-the-badge&logo=bitcoin&logoColor=white)](#-system-architecture)
+[![License](https://img.shields.io/badge/License-Add%20project%20license-lightgrey?style=for-the-badge)](#-project-status)
 
-## Pipeline
+<br />
 
+[Explore the code](https://github.com/YashK-2006/V2X---Guardian) · [Report an issue](https://github.com/YashK-2006/V2X---Guardian/issues)
 
+</div>
 
+---
+
+## The idea
+
+Connected vehicles continuously exchange status, hazard, and emergency messages. A forged emergency alert or coordinated false report can undermine road safety and network reliability.
+
+**V2X Guardian** models this problem end to end. It simulates traffic and V2X communications, detects suspicious messages, fuses detector output with reputation signals, adjusts trust, and records security events and evidence hashes on a permissioned blockchain. A live dashboard exposes the pipeline for inspection and experimentation.
+
+> **Design principle:** detection, trust decisions, and ledger events are driven by the running simulation pipeline—not a dashboard filled with hard-coded demo values.
+
+## At a glance
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🧠 AI security
+- Rule-based misbehaviour checks
+- Multi-class XGBoost / Random Forest detector
+- Classification, confidence, and attack-type outputs
+- Detection and isolation performance metrics
+
+</td>
+<td width="50%" valign="top">
+
+### 🚘 V2X simulation
+- SUMO + TraCI integration
+- CAM, DENM, and pedestrian VAM messages
+- V2V, V2I, and V2P communication modelling
+- Distance-dependent packet loss and latency
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🧭 Dynamic trust
+- AI, consensus, history, and ledger signals
+- Neighbour-report aggregation
+- Blacklisting and probation-based rehabilitation
+- Trust history with decision reasons
+
+</td>
+<td width="50%" valign="top">
+
+### ⛓️ Verifiable accountability
+- Permissioned Proof-of-Authority ledger
+- ECDSA-signed blocks and transactions
+- On-chain evidence hashes
+- Report, blacklist, and rehabilitation records
+
+</td>
+</tr>
+</table>
+
+## System architecture
+
+The data path connects traffic simulation to security decisions and a live operational view.
+
+```mermaid
+flowchart TD
+    A["SUMO / Mock Traffic"] --> B["V2X Message Generation<br/>CAM · DENM · VAM"]
+    B --> C["Attack Injection"]
+    C --> D["Identity & ECDSA Verification"]
+    D --> E["Radio Channel<br/>Range · Loss · Latency"]
+    E --> F["Misbehaviour Detection<br/>Rules + ML"]
+    F --> G["Neighbour Reports<br/>and Message History"]
+    G --> H["Dynamic Trust Engine"]
+    H --> I["Trust Management Contract"]
+    I --> J["Permissioned PoA Blockchain"]
+    J --> K["FastAPI + WebSocket"]
+    K --> L["React SOC Dashboard"]
+    J --> M["Evidence Hash Verification"]
+    style F fill:#172554,stroke:#60a5fa,color:#ffffff
+    style H fill:#312e81,stroke:#a5b4fc,color:#ffffff
+    style J fill:#064e3b,stroke:#34d399,color:#ffffff
+    style L fill:#3f1d2e,stroke:#fb7185,color:#ffffff
 ```
 
-SUMO (TraCI) ──► V2X messages (CAM / DENM, signed) ──► attack injection (live, per vehicle)
+### Processing flow
 
-    ──► radio channel (range, loss, latency, RSU localization)
+1. **Simulate:** vehicles and pedestrians generate messages in a SUMO-driven road network, with a mock traffic mode available for supported test runs.
+2. **Challenge:** configurable attacks falsify, replay, flood, forge, or coordinate malicious messages.
+3. **Assess:** identity checks, rule detectors, and the trained classifier evaluate received messages.
+4. **Build consensus:** receiver history and trust-weighted neighbour reports add context to detector output.
+5. **Respond:** the trust engine updates scores and supports blacklisting and rehabilitation.
+6. **Audit:** the ledger records security actions and evidence hashes; the dashboard streams telemetry and events.
 
-    ──► misbehaviour detection (rule detectors + multi-class XGBoost / RandomForest)
+For implementation details, see [Architecture](docs/architecture.md).
 
-    ──► received-message history + neighbour reports ──► reputation consensus
+## Demonstration scenario: emergency vehicle spoofing
 
-    ──► dynamic trust engine ──► smart contract (report / evidence / blacklist / rehabilitate)
+A vehicle registered as a regular car begins claiming to be an ambulance and transmitting emergency messages.
 
-    ──► PoA blockchain (RSU validators) ──► FastAPI + WebSocket ──► React dashboard
+| Stage | What to inspect |
+|---|---|
+| Attack launch | Start **Emergency Vehicle Spoofing** from the Control Center or load the matching scenario |
+| Detection | Observe the registered-versus-claimed type mismatch and the detector's classification and confidence |
+| Trust response | Follow the vehicle's trust history and status changes |
+| Accountability | Inspect the report, evidence hash, transaction, and blacklist action in the blockchain explorer |
+| Verification | Use the evidence view to check the recorded hash and explore the tamper-test path |
+| Context | Open the vehicle's received-message history to inspect sender, distance, trust, and classification |
 
-```
+The values and timing depend on the running simulation and configuration.
 
+## Technology stack
 
-
-Everything shown in the dashboard is computed by this pipeline; there is no mock data.
-
-If SUMO cannot be started, a simple grid traffic model is used instead (`mock_mode: true` in `/api/health`).
-
-
+| Layer | Technologies |
+|---|---|
+| Traffic simulation | SUMO, TraCI, Python |
+| V2X messaging | CAM, DENM, VAM; simulated V2V / V2I / V2P links |
+| Identity and cryptography | ECDSA P-256, pseudonym certificates, certificate revocation |
+| AI detection | scikit-learn, XGBoost, feature extraction, rule-based checks |
+| Trust and consensus | Dynamic trust engine, trust-weighted reputation aggregation |
+| Ledger | Python permissioned Proof-of-Authority blockchain, smart-contract-style trust rules |
+| Backend | FastAPI, REST, WebSocket, SQLite |
+| Dashboard | React, Vite, Tailwind CSS |
+| Experiments | Headless runs, baselines, trust ablation, ledger comparison |
+| Testing | pytest |
 
 ## Quick start
 
+### Prerequisites
 
+- Python and pip
+- Node.js and npm for the dashboard
+- SUMO installed and configured if you want the full traffic simulator
+
+### 1. Set up Python
+
+From the repository root:
 
 ```bash
-
-pip install -r requirements.txt            # includes traci / sumolib; SUMO itself must be installed
-
-python run_demo.py                        # terminal demo (trains the detector first if needed)
-
-python -m ai.train_detector                # optional: (re)train the detector, ~3 min, writes ai/models/
-
-uvicorn backend.api:app --port 8000        # run from the repository root
-
-cd dashboard && npm install && npm run dev # http://localhost:5173
-
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
+On Windows PowerShell, activate the virtual environment with:
 
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-`SUMO_BINARY=sumo-gui` opens the SUMO GUI alongside the dashboard. `V2X_MOCK_TRAFFIC=1` forces the
+### 2. Run the demo
 
-built-in traffic model (used by the tests).
+```bash
+python run_demo.py
+```
 
+### 3. Start the API
 
+In a separate terminal, from the repository root:
 
-### Demo: emergency vehicle spoofing
+```bash
+uvicorn backend.api:app --reload --port 8000
+```
 
+### 4. Start the dashboard
 
+In another terminal:
 
-1. Open **Control Center**. Tick *Emergency Vehicle Spoofing*, pick a vehicle (or leave it random) and click **LAUNCH ATTACK**,
+```bash
+cd dashboard
+npm install
+npm run dev
+```
 
-   or load *Scenario 4 → Emergency Vehicle Spoofing*.
+Open the Vite URL printed in the terminal (usually [http://localhost:5173](http://localhost:5173)).
 
-2. A car starts claiming to be an ambulance and broadcasts emergency DENMs. Neighbours and RSUs receive them.
+### Useful configuration
 
-3. The detector flags the type mismatch (registered `car`, claimed `ambulance`) with ~97-99% probability. Trust drops
+```bash
+# Force the built-in traffic model, useful for tests and environments without SUMO
+V2X_MOCK_TRAFFIC=1
 
-   (≈ 92 → 70 → 40 → 10 within a few seconds), the smart contract records the misbehaviour report and the evidence hash,
+# On supported installations, open the SUMO GUI
+SUMO_BINARY=sumo-gui
+```
 
-   blacklists the vehicle and revokes its certificate.
+These are environment-variable examples; set them in the shell before starting the process. Check `/api/health` for the active simulation mode.
 
-4. A 🚨 toast appears. The **Before / After** panel shows trust, status, detection latency and on-chain records.
+## Capabilities
 
-5. Click any nearby vehicle and open **Messages Received** to see the spoofed messages with sender, distance,
-
-   sender trust, AI confidence, classification and blockchain TX. Evidence can be verified (and tampering simulated)
-
-   against the chain on the **Attacks** tab or in the **Blockchain** explorer.
-
-
-
-## Feature status
-
-
-
-| Area | Implemented |
-
+| Area | Implemented scope |
 |---|---|
+| Simulation | 4×4 grid network, traffic lights, routes, vehicle types, vehicle entry/exit, configurable scenarios |
+| Message types | CAM beacons, DENM hazard/emergency events, pedestrian VAMs |
+| Communication | V2V (300 m), V2I (500 m), V2P (80 m) range models with distance-dependent loss and latency |
+| Attack scenarios | Emergency spoofing, position/speed/heading falsification, GPS spoofing, false accidents, flooding, replay, Sybil, injection, and coordinated reports |
+| Detection | Rule detectors plus multi-class model; classification, attack type, confidence and metrics |
+| Trust response | AI + consensus + history + ledger inputs, trust history, blacklist and rehabilitation workflow |
+| Identity | Enrollment, pseudonym certificates, message signatures and certificate revocation list |
+| Blockchain | RSU-validator PoA, transactions for reports / evidence / trust / blacklist / rehabilitation, hash verification |
+| Observability | Live map, communication graph, alerts, AI metrics, trust overview, blockchain explorer and performance view |
+| Replay & experiments | Run recording and replay timeline, headless experiments, baseline and ablation workflows |
 
-| SUMO | 4×4 grid, 2 lanes, traffic lights, random routes, lane changing, dynamic entry/exit, 9 vehicle types (car, SUV, taxi, bus, truck, motorcycle, ambulance, fire truck, police) |
+Exact behaviour and supported scenarios are defined by the current code and configuration.
 
-| V2X | CAM beacons (1 Hz), DENMs (emergency approach, congestion, lane change, accident/hazard), pedestrian VAMs; V2V (300 m), V2I (500 m), V2P (80 m) with distance-based loss and latency; RSU warnings to vehicles (I2V); V2N relay of reports to the ledger |
+## API surface
 
-| Attacks | emergency spoofing, false position / speed / acceleration / heading, GPS spoofing, fake accident, flooding, replay, Sybil, message injection, multi-vehicle collusion (fake corroboration + bad-mouthing) |
-
-| Detection | 13 rule detectors with expected-vs-observed evidence + multi-class XGBoost/RandomForest (14 classes) trained on simulator data; Normal / Suspicious / Malicious, attack type, probability, confidence |
-
-| Trust | dynamic score `S·(α·AI + β·consensus + γ·history + δ·ledger)`, trust-weighted neighbour reports, blacklisting, probation-based rehabilitation, history with reasons |
-
-| Identity & privacy | CA enrollment with registered type, rotating ECDSA P-256 pseudonym certificates, signed messages, CRL revocation on blacklist, privacy view (pseudonyms + 50 m location coarsening) |
-
-| Blockchain | permissioned PoA (round-robin RSUs, ECDSA-signed blocks and txs), registration / report / trust / evidence / blacklist / rehabilitation txs, evidence hash verification, centralized-ledger baseline |
-
-| Scenarios | normal, high traffic, emergency vehicles, emergency spoofing, multiple attackers, Sybil, replay, mixed |
-
-| Performance | V2X latency (p50/p95, end-to-end), PDR, loss, throughput, security overhead; blockchain tx latency, TPS, consensus time, storage, replication overhead; AI inference time, detection latency, isolation time, CPU, memory |
-
-| Replay | every run is recorded (`data/runs/`) and can be replayed with a timeline scrubber |
-
-| Experiments | headless runs of the live pipeline: 9 configs, baseline comparison, trust ablation, blockchain-vs-centralized tamper test |
-
-| Dashboard | live map (vehicles, pedestrians, RSUs), vehicle page with 8 tabs, received-message history with filters, alerts/toasts, control center, communication graph, AI metrics, trust management, blockchain explorer, performance, replay, experiments |
-
-
-
-## Key API endpoints
-
-
+The backend exposes REST endpoints and a WebSocket telemetry stream. Examples of documented endpoint families:
 
 | Endpoint | Purpose |
-
 |---|---|
+| `GET /api/vehicles/{id}` | Vehicle detail, trust components, certificate and counters |
+| `GET /api/vehicles/{id}/messages/received` | Received-message history with filters |
+| `POST /api/attacks/launch` · `POST /api/attacks/stop` | Attack control |
+| `POST /api/simulation/{start,pause,resume,stop,restart}` | Simulation lifecycle controls |
+| `GET /api/evidence/{attack_id}` | Evidence record and on-chain hash verification |
+| `GET /api/stats` · `GET /api/ai/metrics` · `GET /api/trust/overview` | Operational metrics |
+| `GET /api/blockchain/blocks` · `GET /api/blockchain/transactions` · `GET /api/blockchain/validate` | Ledger inspection and validation |
+| `WS /ws/telemetry` | Live telemetry, alerts, new blocks and trust changes |
 
-| `GET /api/vehicles/{id}` | full vehicle detail (type vs claimed type, trust components, certificate, counts) |
+Use the API source and interactive API documentation exposed by the running FastAPI app for the authoritative request schemas.
 
-| `GET /api/vehicles/{id}/messages/received?filter=&sender=&type=&from=&to=` | received message history (`filter`: all, valid, suspicious, malicious, emergency) |
-
-| `GET /api/vehicles/{id}/messages/sent`, `/trust/history`, `/attacks`, `/blockchain` | per-vehicle tabs |
-
-| `POST /api/attacks/launch {attack_type, vehicle_id?}`, `POST /api/attacks/stop`, `GET /api/attacks/{id}/comparison` | attack control and before/after |
-
-| `POST /api/simulation/{start,pause,resume,stop,restart}`, `POST /api/simulation/speed {factor}` | simulation control |
-
-| `GET /api/scenarios`, `POST /api/scenario/load {scenario_id}` | scenario management |
-
-| `GET /api/evidence/{attack_id}[?tamper=true]` | evidence record + on-chain hash verification |
-
-| `GET /api/stats`, `/api/ai/metrics`, `/api/trust/overview`, `/api/graph`, `/api/performance` | analytics |
-
-| `GET /api/runs`, `/api/runs/{id}/frames` | replay |
-
-| `POST /api/experiment/start`, `GET /api/experiments/results` | experiments |
-
-| `GET /api/blockchain/{status,blocks,blocks/{i},transactions,transactions/{tx},validate}` | explorer |
-
-| `WS /ws/telemetry` | `telemetry` (10 Hz) plus `alert`, `block`, `trust_change` events |
-
-
-
-## Tests
-
-
+## Testing
 
 ```bash
-
-python -m pytest            # the live-pipeline tests use the mock traffic model (no SUMO needed)
-
+python -m pytest
 ```
 
+The test configuration is designed to use the mock traffic model where appropriate, so supported tests can run without a local SUMO installation.
 
+## Repository map
 
-## Project structure
-
-
-
+```text
+ai/           Rule detectors, ML detector, features, training
+backend/      FastAPI endpoints, orchestrator, evidence and persistence
+blockchain/   Blocks, transactions, PoA chain and trust contract
+dashboard/    React + Vite + Tailwind security dashboard
+data/         Local databases and run data (runtime-generated)
+docs/         Architecture and technical documentation
+experiments/  Headless experiment runner, baselines and ablations
+simulation/   SUMO integration, road network, vehicles, attacks and scenarios
+tests/        Automated test suite
+trust/        Dynamic trust, reputation and report aggregation
+v2x/          Message factory, identity and radio-channel model
 ```
 
-ai/           detector (rules + model), feature extraction, training
+## Project status
 
-backend/      FastAPI app, orchestrator (pipeline), evidence store, database
+V2X Guardian is an engineering and simulation project. The ledger and network behaviours are implemented in this codebase for experimentation; they should not be interpreted as a production-ready vehicular safety system or as a deployed public blockchain.
 
-blockchain/   blocks, transactions, PoA chain, smart contracts
+## Contributing
 
-simulation/   SUMO integration, road network + vehicle types, attacks, scenarios
+Issues and focused pull requests are welcome. When reporting a bug, include the operating system, Python and Node versions, the command used, relevant logs, and whether SUMO or mock mode was active. Do not commit secrets, virtual environments, local databases, generated experiment runs, or large downloaded installers.
 
-trust/        dynamic trust engine, reputation / report aggregation, consensus
+## License
 
-v2x/          message factory, identity registry, radio channel, legacy message classes
+No license file is currently declared in this repository. Until a license is added, assume the project is **not licensed for reuse or redistribution** beyond rights granted by applicable law.
 
-dashboard/    React + Vite + Tailwind dashboard
+---
 
-experiments/  headless experiment runner, configs, baselines, ablation
+<div align="center">
 
-docs/         project report, architecture, detection, blockchain & identity, experiments, API reference
+**V2X Guardian** · Building more accountable connected-vehicle systems
 
-```
+<sub>Research prototype · Simulation-first · AI-assisted security</sub>
+
+</div>
