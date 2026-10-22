@@ -272,6 +272,20 @@ trust/        Dynamic trust, reputation and report aggregation
 v2x/          Message factory, identity and radio-channel model
 ```
 
+## Dashboard motion design
+
+The React operations dashboard includes a coordinated motion layer designed for a dark, high-contrast security-console aesthetic:
+
+- Route transitions with a brief fade, lift, and focus settle
+- Trust gauges with animated score arcs and threshold-based glow
+- A low-contrast HUD grid, cyan network bloom, and pulsing vehicle / RSU markers
+- New blockchain transaction and evidence rows that animate into the feed
+- Severity-aware attack notifications, including a restrained critical-alert pulse
+- Hover elevation and luminous edge treatments across cards and navigation
+- Reduced-motion handling via the user's operating-system accessibility preference
+
+Animations are presentation only: vehicle, trust, alert, and ledger values continue to come from the existing application state and backend endpoints. No synthetic telemetry was added.
+
 ## Project status
 
 V2X Guardian is an engineering and simulation project. The ledger and network behaviours are implemented in this codebase for experimentation; they should not be interpreted as a production-ready vehicular safety system or as a deployed public blockchain.
