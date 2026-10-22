@@ -1,12 +1,28 @@
-# V2X AI + Blockchain Trust Framework
+<div align="center">
 
+<img src="assets/guardian-hero.svg" alt="V2X Guardian — animated royal cyber-security banner" width="100%" />
 
+<br />
 
-A SUMO-based V2X simulation with AI misbehaviour detection, dynamic trust and reputation management,
+<a href="https://readme-typing-svg.demolab.com">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=20&duration=2600&pause=650&color=D8B45A&center=true&vCenter=true&repeat=true&width=850&height=45&lines=AI-Powered+V2X+Threat+Detection;Dynamic+Trust+%2B+Reputation+Engine;Blockchain-Backed+Evidence+Integrity;A+Royal+Security+Console+for+Connected+Vehicles" alt="Animated V2X Guardian project tagline" />
+</a>
 
-a permissioned blockchain for trust records and evidence, and a real-time SOC dashboard.
+<br />
 
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![SUMO](https://img.shields.io/badge/SUMO-TraCI-6B46C1?style=for-the-badge)](https://sumo.dlr.de/)
+[![SECURITY](https://img.shields.io/badge/AI%20%2B%20TRUST%20%2B%20LEDGER-D8B45A?style=for-the-badge&labelColor=151126)](#-feature-status)
 
+<br />
+
+<sub>INTELLIGENCE · TRUST · ACCOUNTABILITY</sub>
+
+</div>
+
+A SUMO-based V2X simulation with AI misbehaviour detection, dynamic trust and reputation management, a permissioned blockchain for trust records and evidence, and a real-time Security Operations Center (SOC) dashboard.
 
 ## Pipeline
 
