@@ -24,27 +24,104 @@
 
 A SUMO-based V2X simulation with AI misbehaviour detection, dynamic trust and reputation management, a permissioned blockchain for trust records and evidence, and a real-time Security Operations Center (SOC) dashboard.
 
-## Pipeline
+## System Architecture & End-to-End Flow
 
+The diagram below shows how simulated traffic becomes authenticated V2X messages, how suspicious behaviour is detected and scored, and how decisions and evidence reach the ledger and live SOC dashboard.
 
+```mermaid
+flowchart TD
+    %% V2X Guardian — end-to-end architecture
 
+    subgraph SIM["01 · Traffic & Scenario Simulation"]
+        SUMO["SUMO / TraCI<br/>Road network · vehicles · RSUs"]
+        FALLBACK["Built-in traffic model<br/>(fallback mode)"]
+        ATTACK["Scenario & attack engine<br/>Spoofing · Sybil · replay · flooding"]
+        SUMO -. "if SUMO unavailable" .-> FALLBACK
+        SUMO --> ATTACK
+        FALLBACK --> ATTACK
+    end
+
+    subgraph V2X["02 · Message Creation & Communication"]
+        MSG["V2X message factory<br/>CAM · DENM · VAM"]
+        ID["Identity & certificate checks<br/>ECDSA signatures · pseudonyms"]
+        RADIO["Radio channel model<br/>V2V · V2I · V2P · I2V<br/>range · packet loss · latency"]
+        RX["Receiver / RSU<br/>message history · neighbour context"]
+        ATTACK --> MSG
+        MSG --> ID --> RADIO --> RX
+    end
+
+    subgraph AI["03 · AI-Assisted Misbehaviour Detection"]
+        FEATURES["Feature extraction<br/>sender claims · motion · context"]
+        RULES["Rule-based detectors<br/>expected vs observed evidence"]
+        ML["ML classifier<br/>XGBoost / Random Forest"]
+        FUSION["Detection result<br/>class · attack type · confidence"]
+        RX --> FEATURES
+        FEATURES --> RULES
+        FEATURES --> ML
+        RULES --> FUSION
+        ML --> FUSION
+    end
+
+    subgraph TRUST["04 · Reputation, Trust & Response"]
+        REPORTS["Neighbour reports + message history"]
+        CONSENSUS["Reputation aggregation / consensus"]
+        TRUSTSCORE["Dynamic trust engine<br/>AI · consensus · history · ledger"]
+        DECISION{"Trust / threat decision"}
+        ACTION["Response policy<br/>alert · probation · isolate / blacklist"]
+        RX --> REPORTS
+        FUSION --> TRUSTSCORE
+        REPORTS --> CONSENSUS --> TRUSTSCORE
+        TRUSTSCORE --> DECISION
+        DECISION --> ACTION
+    end
+
+    subgraph LEDGER["05 · Verifiable Evidence & Ledger"]
+        EVIDENCE["Evidence store<br/>event details + cryptographic hash"]
+        CONTRACT["Smart-contract actions<br/>report · evidence · blacklist · rehabilitate"]
+        POA["Permissioned PoA blockchain<br/>RSU validators · signed transactions"]
+        ACTION --> EVIDENCE
+        EVIDENCE --> CONTRACT --> POA
+        POA -. "ledger feedback" .-> TRUSTSCORE
+    end
+
+    subgraph APP["06 · Live Security Operations Center"]
+        API["FastAPI backend<br/>orchestration · REST endpoints"]
+        WS["WebSocket telemetry<br/>vehicles · alerts · trust · blocks"]
+        UI["React SOC dashboard<br/>live map · AI metrics · trust · explorer"]
+        POA --> API
+        ACTION --> API
+        FUSION --> API
+        API --> WS --> UI
+        API --> UI
+    end
+
+    classDef sim fill:#17142b,stroke:#8b79d9,color:#f7f4ff,stroke-width:1.5px;
+    classDef comm fill:#10283a,stroke:#42b8d5,color:#e8fbff,stroke-width:1.5px;
+    classDef ai fill:#292047,stroke:#a78bfa,color:#f7f1ff,stroke-width:1.5px;
+    classDef trust fill:#302713,stroke:#d8b45a,color:#fff6d8,stroke-width:1.5px;
+    classDef ledger fill:#15352d,stroke:#5ac6a0,color:#eafff5,stroke-width:1.5px;
+    classDef app fill:#172438,stroke:#7aa7ff,color:#eef5ff,stroke-width:1.5px;
+    classDef decision fill:#4a2029,stroke:#ff8b9b,color:#fff0f2,stroke-width:2px;
+
+    class SUMO,FALLBACK,ATTACK sim;
+    class MSG,ID,RADIO,RX comm;
+    class FEATURES,RULES,ML,FUSION ai;
+    class REPORTS,CONSENSUS,TRUSTSCORE,ACTION trust;
+    class EVIDENCE,CONTRACT,POA ledger;
+    class API,WS,UI app;
+    class DECISION decision;
+
+    linkStyle default stroke:#8a94a8,stroke-width:1.5px;
 ```
 
-SUMO (TraCI) ──► V2X messages (CAM / DENM, signed) ──► attack injection (live, per vehicle)
+### Runtime sequence
 
-    ──► radio channel (range, loss, latency, RSU localization)
-
-    ──► misbehaviour detection (rule detectors + multi-class XGBoost / RandomForest)
-
-    ──► received-message history + neighbour reports ──► reputation consensus
-
-    ──► dynamic trust engine ──► smart contract (report / evidence / blacklist / rehabilitate)
-
-    ──► PoA blockchain (RSU validators) ──► FastAPI + WebSocket ──► React dashboard
-
-```
-
-
+1. **Simulate:** SUMO/TraCI advances vehicles and RSUs; scenario controls can inject malicious behaviour. If SUMO is unavailable, the built-in traffic model can be used.
+2. **Communicate:** The message factory creates CAM, DENM and VAM traffic. Identity checks, signatures and the radio model determine what receivers actually receive.
+3. **Detect:** Rule-based checks and the trained classifier analyse message features and context, producing a class, attack type and confidence.
+4. **Score & respond:** Neighbour reports and message history feed reputation aggregation. The dynamic trust engine combines AI, consensus, history and ledger signals to drive alerts and isolation decisions.
+5. **Preserve evidence:** Reports and evidence hashes are submitted through smart-contract actions to the permissioned Proof-of-Authority ledger; ledger state can feed back into trust.
+6. **Visualise:** FastAPI exposes live state and REST endpoints, while WebSockets stream telemetry and events to the React SOC dashboard.
 
 Everything shown in the dashboard is computed by this pipeline; there is no mock data.
 
